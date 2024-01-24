@@ -11,6 +11,8 @@ Config.JobZones = {
     },
 }
 
+Config.OXTarget = true -- set to false to use qb-target.
+
 Config.Debug = false
 
 Config.EnableCommission = false
