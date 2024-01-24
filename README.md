@@ -1,4 +1,4 @@
-# Randolio Billing
+# Billing
 
 Society fund support for renewed/qb-management/qb-banking by default. Look at the config or change the addSocietyFunds(job, amount, reason) function in the server file.
 
