@@ -65,7 +65,8 @@ RegisterNetEvent('randol_billing:server:chargePlayer', function(data)
         QBCore.Functions.Notify(Biller.PlayerData.source, 'Customer declined the charge.', 'error', 8000)
         return
     end
-    if Target.Functions.RemoveMoney(data.account, data.fee, ('Billed by %s.'):format(Biller.PlayerData.job.label)) then
+    if Target.PlayerData.money[data.account] >= data.fee then
+        Target.Functions.RemoveMoney(data.account, data.fee, 'Billed by '..Biller.PlayerData.job.label)
         if Config.EnableCommission then
             Biller.Functions.AddMoney('bank', commission)
             QBCore.Functions.Notify(Biller.PlayerData.source, ('You billed a customer for $%s & recevied $%s commission'):format(data.fee, commission), 'success')
