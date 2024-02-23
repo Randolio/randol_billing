@@ -1,10 +1,9 @@
+local Config = lib.require('config')
 local Webhook = ''
 
 local function sendLog(title, message)
-    local embed = {}
-    embed = { { title = title, description = message, } }
-    PerformHttpRequest(Webhook, 
-    function(err, text, headers) end, 'POST', json.encode({username = 'Discord Logs', embeds = embed}), { ['Content-Type'] = 'application/json' })
+    local embed = { { ['title'] = title, ['description'] = message, } }
+    PerformHttpRequest(Webhook, function(err, text, headers) end, 'POST', json.encode({ username = 'TPRP Logs', embeds = embed}), { ['Content-Type'] = 'application/json' })
 end
 
 local function isJob(src)

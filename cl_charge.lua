@@ -1,3 +1,4 @@
+local Config = lib.require('config')
 local chargeZones = {}
 
 local function removeAllZones()
