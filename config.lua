@@ -10,11 +10,11 @@ return = {
             {coords = vec3(1248.8, -356.36, 69.21)},
             {coords = vec3(1246.87, -355.94, 69.21)},
         },
-    }
-    OXTarget = true -- set to false to use qb-target.
-    Debug = false
-    EnableCommission = false
-    Percent = 0.20
-    Distance = 10.0
-    Society = 'renewed' -- renewed / qb-management / qb-banking (new system they use)
+    },
+    OXTarget = true,-- set to false to use qb-target.
+    Debug = false,
+    EnableCommission = false,
+    Percent = 0.20,
+    Distance = 10.0,
+    Society = 'renewed', -- renewed / qb-management / qb-banking (new system they use)
 }
