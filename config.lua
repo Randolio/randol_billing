@@ -1,6 +1,6 @@
 QBCore = exports['qb-core']:GetCoreObject()
 
-return = {
+return {
     JobZones = {
         vanilla = { -- Job name [Example is setup for Gabz VU with job name vanilla]
             {coords = vec3(129.15, -1284.95, 29.29)}, -- Multi location support using zones.
