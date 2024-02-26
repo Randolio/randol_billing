@@ -27,6 +27,38 @@ local function addSocietyFunds(job, amount, reason)
     end
 end
 
+local function getNearbyCharacters(coords) -- Modification from ox lib.
+    local players = GetActivePlayers()
+    local nearby = {}
+    local count = 0
+
+    for i = 1, #players do
+        local playerId = players[i]
+        local playerPed = GetPlayerPed(playerId)
+        local playerCoords = GetEntityCoords(playerPed)
+        local distance = #(coords - playerCoords)
+
+        if distance <= Config.Distance then
+            local Ply = QBCore.Functions.GetPlayer(playerId)
+            local name = Ply.PlayerData.charinfo.firstname .. ' ' .. Ply.PlayerData.charinfo.lastname
+            count += 1
+            nearby[#nearby+1] = {
+                id = playerId,
+                name = name,
+            }
+        end
+    end
+
+    return nearby
+end
+
+lib.callback.register('randol_billing:server:getCharacters', function(source)
+    local ped = GetPlayerPed(source)
+    local coords = GetEntityCoords(ped)
+    local nearby = getNearbyCharacters(coords)
+    return nearby
+end)
+
 RegisterNetEvent('randol_billing:server:attemptCharge', function(data)
     local src = source
     local Biller = QBCore.Functions.GetPlayer(src)
