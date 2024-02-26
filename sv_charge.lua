@@ -30,7 +30,6 @@ end
 local function getNearbyCharacters(coords) -- Modification from ox lib.
     local players = GetActivePlayers()
     local nearby = {}
-    local count = 0
 
     for i = 1, #players do
         local playerId = players[i]
@@ -41,7 +40,6 @@ local function getNearbyCharacters(coords) -- Modification from ox lib.
         if distance <= Config.Distance then
             local Ply = QBCore.Functions.GetPlayer(playerId)
             local name = Ply.PlayerData.charinfo.firstname .. ' ' .. Ply.PlayerData.charinfo.lastname
-            count += 1
             nearby[#nearby+1] = {
                 id = playerId,
                 name = name,
