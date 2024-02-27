@@ -54,7 +54,7 @@ local function ChargeZones()
     for job, locations in pairs(Config.JobZones) do
         for i = 1, #locations do
             local v = locations[i]
-            local zone = exports['qb-target']:AddCircleZone("CHARGE_"..job..i, v.coords, 0.5,{ 
+            exports['qb-target']:AddCircleZone("CHARGE_"..job..i, v.coords, 0.5,{ 
                 name= "CHARGE_"..job..i, 
                 debugPoly = Config.Debug, 
                 useZ=true, 
@@ -75,7 +75,7 @@ local function ChargeZones()
                 },
                 distance = 1.5
             })
-            chargeZones[#chargeZones+1] = zone.name
+            chargeZones[#chargeZones+1] = "CHARGE_"..job..i
         end
     end
 end
