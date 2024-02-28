@@ -44,8 +44,8 @@ local function ChargeMenu(jobName, data)
     if not response then return end
     local data = {
         id = response[1],
-        amount = response[2],
-        accountType = response[3],
+        accountType = response[2],
+        amount = response[3],
     }
     TriggerServerEvent('randol_billing:server:attemptCharge', data)
 end
