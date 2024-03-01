@@ -6,7 +6,9 @@ Society fund support for renewed/qb-management/qb-banking by default. Look at th
 
 Player commission for billing also optionally supported with a percent cut defined in the config.
 
-Requirements are ox_lib and ox_target/qb-target.
+Requirements are ox_lib, ox_target/qb-target.
+
+**Note**: If you get an error for nil value (global GetActivePlayers), make sure your ox lib is up to date and contains the GetActivePlayers() function in the init.lua.
 
 # Showcase
 
