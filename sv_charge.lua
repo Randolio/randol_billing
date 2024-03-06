@@ -9,7 +9,7 @@ end
 local function isJob(src)
     local src = src
     local Biller = QBCore.Functions.GetPlayer(src)
-    if Config.JobZones[Biller.PlayerData.job.name] then
+    if Config.Jobs[Biller.PlayerData.job.name] then
         return true
     end
     return false
@@ -88,12 +88,14 @@ RegisterNetEvent('randol_billing:server:chargePlayer', function(data)
     local src = source
     local Biller = QBCore.Functions.GetPlayer(data.srcid)
     local Target = QBCore.Functions.GetPlayer(data.trgid)
-    local commission = math.ceil(data.fee * Config.Percent)
-    local success = false
+    local perc = Config.Jobs[Biller.PlayerData.job.name].Percent or 0
+    local commission = math.ceil(data.fee * perc)
+
     if not data.confirm then
         QBCore.Functions.Notify(Biller.PlayerData.source, 'Customer declined the charge.', 'error', 8000)
         return
     end
+
     if Target.PlayerData.money[data.account] >= data.fee then
         Target.Functions.RemoveMoney(data.account, data.fee, 'Billed by '..Biller.PlayerData.job.label)
         if Config.EnableCommission then

@@ -13,12 +13,10 @@ local function getList(data)
     local inputList = {}
     for i = 1, #data do
         local ply = data[i]
-        if ply.id ~= cache.serverId then
-            inputList[#inputList + 1] = {
-                value = ply.id,
-                label = ('%s - %s'):format(ply.id, ply.name),
-            }
-        end
+        inputList[#inputList + 1] = {
+            value = ply.id,
+            label = ('%s - %s'):format(ply.id, ply.name),
+        }
     end
     return inputList
 end
@@ -51,10 +49,10 @@ local function ChargeMenu(jobName, data)
 end
 
 local function ChargeZones()
-    for job, locations in pairs(Config.JobZones) do
-        for i = 1, #locations do
-            local v = locations[i]
-            exports['qb-target']:AddCircleZone("CHARGE_"..job..i, v.coords, 0.5,{ 
+    for job, data in pairs(Config.Jobs) do
+        for i = 1, #data.locations do
+            local coords = data.locations[i]
+            exports['qb-target']:AddCircleZone("CHARGE_"..job..i, coords, 0.5,{ 
                 name= "CHARGE_"..job..i, 
                 debugPoly = Config.Debug, 
                 useZ=true, 
