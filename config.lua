@@ -3,7 +3,6 @@ QBCore = exports['qb-core']:GetCoreObject()
 return {
     Debug = false,
     EnableCommission = false,
-    Percent = 0.20,
     Distance = 10.0,
     Society = 'renewed', -- renewed / qb-management / qb-banking (new system they use)
     Jobs = {
