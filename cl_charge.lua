@@ -2,11 +2,51 @@ local Config = lib.require('config')
 local chargeZones = {}
 local PlayerData = {}
 
+local function initGlobal(job)
+    if not job then return end
+
+    exports['qb-target']:RemoveGlobalPlayer('Bill Player')
+
+    if Config.Jobs[job] and Config.Jobs[job].useGlobal then
+        exports['qb-target']:AddGlobalPlayer({
+            options = {
+                {
+                    icon = 'fa-solid fa-hand-holding-dollar',
+                    label = 'Bill Player',
+                    action = function(entity)
+                        local serverId = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity))
+
+                        local response = lib.inputDialog(('Charge Player: %s'):format(serverId), {
+                            { type = 'select', label = 'Account', required = true, icon = 'fa-solid fa-wallet', 
+                                options = {
+                                    { value = 'cash', label = 'Cash' },
+                                    { value = 'bank', label = 'Bank' },
+                                }
+                            },
+                            { type = "number", label = "How much?", icon = 'fa-solid fa-hand-holding-dollar', placeholder = "$", min = 1, description = "Input an amount to charge.", required = true   },
+                        })
+
+                        if not response then return end
+                        local data = { id = serverId, accountType = response[1], amount = response[2], }
+                        TriggerServerEvent('randol_billing:server:attemptCharge', data)
+                    end,
+                    canInteract = function(entity, distance, data)
+                        return IsPedAPlayer(entity)
+                    end,
+                    job = job,
+                }
+            },
+            distance = 2.5,
+        })
+    end
+end
+
 local function removeAllZones()
     for i = 1, #chargeZones do
         exports['qb-target']:RemoveZone(chargeZones[i])
     end
     table.wipe(chargeZones)
+    exports['qb-target']:RemoveGlobalPlayer('Bill Player')
 end
 
 local function getList(data)
@@ -76,6 +116,7 @@ local function ChargeZones()
             chargeZones[#chargeZones+1] = "CHARGE_"..job..i
         end
     end
+    initGlobal(PlayerData.job.name)
 end
 
 RegisterNetEvent("randol_billing:client:sendConfirm", function(data)
@@ -108,6 +149,11 @@ AddEventHandler('onResourceStart', function(resource)
         PlayerData = QBCore.Functions.GetPlayerData()
         ChargeZones()
     end
+end)
+
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
+    PlayerData.job = JobInfo
+    initGlobal(PlayerData.job.name)
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
