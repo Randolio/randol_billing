@@ -1,10 +1,7 @@
-QBCore = exports['qb-core']:GetCoreObject()
-
 return {
     Debug = false,
     EnableCommission = false,
     Distance = 10.0,
-    Society = 'renewed', -- renewed / qb-management / qb-banking (new system they use)
     Jobs = {
         vanilla = { -- Job name [Example is setup for Gabz VU with job name vanilla]
             useGlobal = false, -- if true, Provides a global player target option for billing from anywhere.

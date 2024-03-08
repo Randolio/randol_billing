@@ -1,8 +1,7 @@
 local Config = lib.require('config')
 local chargeZones = {}
-local PlayerData = {}
 
-local function initGlobal(job)
+function initGlobal(job)
     if not job then return end
 
     exports['qb-target']:RemoveGlobalPlayer('Bill Player')
@@ -41,7 +40,7 @@ local function initGlobal(job)
     end
 end
 
-local function removeAllZones()
+function removeAllZones()
     for i = 1, #chargeZones do
         exports['qb-target']:RemoveZone(chargeZones[i])
     end
@@ -62,11 +61,11 @@ local function getList(data)
 end
 
 local function ChargeMenu(jobName, data)
-    local jobLabel = QBCore.Shared.Jobs[jobName].label
+    local jobLabel = GetJobLabel(jobName)
     local inputList = getList(data)
     
     if #inputList == 0 then
-        return QBCore.Functions.Notify("No customers nearby.", "error")
+        return DoNotification("No customers nearby.", "error")
     end
 
     local response = lib.inputDialog(jobLabel, {
@@ -88,7 +87,7 @@ local function ChargeMenu(jobName, data)
     TriggerServerEvent('randol_billing:server:attemptCharge', data)
 end
 
-local function ChargeZones()
+function ChargeZones(jobName)
     for job, data in pairs(Config.Jobs) do
         for i = 1, #data.locations do
             local coords = data.locations[i]
@@ -102,9 +101,6 @@ local function ChargeZones()
                         icon = "fa-solid fa-money-check-dollar",
                         label = 'Charge Customer',
                         action = function()
-                            if not PlayerData.job.onduty then
-                                return QBCore.Functions.Notify("You are not clocked in.", "error")
-                            end
                             local data = lib.callback.await('randol_billing:server:getCharacters', false)
                             ChargeMenu(job, data)
                         end,
@@ -116,7 +112,7 @@ local function ChargeZones()
             chargeZones[#chargeZones+1] = "CHARGE_"..job..i
         end
     end
-    initGlobal(PlayerData.job.name)
+    initGlobal(jobName)
 end
 
 RegisterNetEvent("randol_billing:client:sendConfirm", function(data)
@@ -134,33 +130,6 @@ RegisterNetEvent("randol_billing:client:sendConfirm", function(data)
 end)
 
 AddEventHandler('onResourceStop', function(resourceName) 
-    if GetCurrentResourceName() == resourceName then
-        removeAllZones()
-    end 
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    PlayerData = QBCore.Functions.GetPlayerData()
-    ChargeZones()
-end)
-
-AddEventHandler('onResourceStart', function(resource)
-    if GetCurrentResourceName() == resource then
-        PlayerData = QBCore.Functions.GetPlayerData()
-        ChargeZones()
-    end
-end)
-
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
-    PlayerData.job = JobInfo
-    initGlobal(PlayerData.job.name)
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    if GetCurrentResourceName() ~= resourceName then return end
     removeAllZones()
-    table.wipe(PlayerData)
-end)
-
-RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
-    PlayerData = val
 end)
