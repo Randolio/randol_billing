@@ -24,9 +24,11 @@ end)
 
 AddEventHandler('esx:setPlayerData', function(key, value)
     PlayerData[key] = value
-    if key == 'job' then
-        initGlobal(PlayerData[key].name)
-    end
+end)
+
+RegisterNetEvent('randol_billing:jobChange', function(Job)
+    PlayerData.job = Job
+    initGlobal(PlayerData.job.name)
 end)
 
 function hasPlyLoaded()

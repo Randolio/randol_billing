@@ -40,6 +40,10 @@ function RemovePlayerMoney(xPlayer, amount, moneyType)
     return false
 end
 
+AddEventHandler('esx:setJob', function(source, job, lastJob)
+    TriggerClientEvent('randol_billing:jobChange', source, job)
+end)
+
 lib.callback.register('randol_billing:server:esxJobs', function(source, job)
     return ESX.GetJobs()[job].label
 end)
