@@ -26,8 +26,9 @@ AddEventHandler('esx:setPlayerData', function(key, value)
     PlayerData[key] = value
 end)
 
-RegisterNetEvent('randol_billing:jobChange', function(Job)
-    PlayerData.job = Job
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+    PlayerData.job = job
     initGlobal(PlayerData.job.name)
 end)
 
