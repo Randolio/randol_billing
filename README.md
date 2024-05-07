@@ -19,3 +19,5 @@ Requirements are ox_lib, ox_target/qb-target.
 # Showcase
 
 https://streamable.com/hsb88l
+
+**You have permission to use this in your server and edit for your personal needs but are not allowed to redistribute.**
