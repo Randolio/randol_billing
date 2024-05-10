@@ -25,7 +25,7 @@ function addSocietyFunds(job, amount, reason)
 end
 
 function AddMoney(Player, moneyType, amount)
-    Player.Functions.AddMoney(account, amount, 'commission')
+    Player.Functions.AddMoney(moneyType, amount, 'commission')
 end
 
 function RemovePlayerMoney(Player, amount, moneyType)
