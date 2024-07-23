@@ -41,5 +41,5 @@ function DoNotification(text, nType)
 end
 
 function GetJobLabel(job)
-    return lib.callback.await('randol_billing:server:esxJobs', false, job)
+    return PlayerData.job.label
 end
