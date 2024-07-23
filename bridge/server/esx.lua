@@ -39,7 +39,3 @@ function RemovePlayerMoney(xPlayer, amount, moneyType)
 
     return false
 end
-
-lib.callback.register('randol_billing:server:esxJobs', function(source, job)
-    return ESX.GetJobs()[job].label
-end)
