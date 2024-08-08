@@ -2,7 +2,7 @@ if GetResourceState('qb-core') ~= 'started' then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local PlayerData = {}
+PlayerData = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
@@ -20,7 +20,6 @@ end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     PlayerData.job = JobInfo
-    initGlobal(PlayerData.job.name)
 end)
 
 AddEventHandler('onResourceStart', function(res)

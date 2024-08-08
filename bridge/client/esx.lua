@@ -2,7 +2,7 @@ if GetResourceState('es_extended') ~= 'started' then return end
 
 local ESX = exports['es_extended']:getSharedObject()
 
-local PlayerData = {}
+PlayerData = {}
 
 RegisterNetEvent('esx:playerLoaded', function(xPlayer)
     PlayerData = xPlayer
@@ -29,7 +29,6 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
     PlayerData.job = job
-    initGlobal(PlayerData.job.name)
 end)
 
 function hasPlyLoaded()

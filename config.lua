@@ -19,5 +19,12 @@ return {
                 vec3(1246.87, -355.94, 69.21),
             },
         },
+        taxi = { -- Mirror Park burgershot G&N studios.
+            useGlobal = true, -- if true, Provides a global player target option for billing from anywhere.
+            Percent = 0.20,
+            locations = {
+
+            },
+        },
     },
 }
