@@ -139,7 +139,7 @@ if oxtarget then
             TriggerServerEvent('randol_billing:server:attemptCharge', info)
         end,
         canInteract = function(entity, distance, data)
-            return IsPedAPlayer(entity) and Config.Jobs[PlayerData.job.name].useGlobal
+            return IsPedAPlayer(entity) and (Config.Jobs[PlayerData.job.name] and Config.Jobs[PlayerData.job.name].useGlobal)
         end,
     })
 else
@@ -166,7 +166,7 @@ else
                     TriggerServerEvent('randol_billing:server:attemptCharge', data)
                 end,
                 canInteract = function(entity, distance, data)
-                    return IsPedAPlayer(entity) and Config.Jobs[PlayerData.job.name].useGlobal
+                    return IsPedAPlayer(entity) and (Config.Jobs[PlayerData.job.name] and Config.Jobs[PlayerData.job.name].useGlobal)
                 end,
             }
         },
