@@ -1,10 +1,9 @@
 local Config = lib.require('config')
 local chargeZones = {}
-local oxtarget = GetResourceState('ox_target') == 'started'
 
 function removeAllZones()
     for i = 1, #chargeZones do
-        if oxtarget then
+        if GetResourceState('ox_target') == 'started' then
             exports.ox_target:removeZone(chargeZones[i])
         else
             exports['qb-target']:RemoveZone(chargeZones[i])
@@ -56,7 +55,7 @@ function ChargeZones(jobName)
     for job, data in pairs(Config.Jobs) do
         for i = 1, #data.locations do
             local coords = data.locations[i]
-            if oxtarget then
+            if GetResourceState('ox_target') == 'started' then
                 chargeZones[#chargeZones+1] = exports.ox_target:addSphereZone({
                     coords = vec3(coords.x, coords.y, coords.z),
                     radius = 0.5,
@@ -117,7 +116,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     removeAllZones()
 end)
 
-if oxtarget then
+if GetResourceState('ox_target') == 'started' then
     exports.ox_target:addGlobalPlayer({
         icon = 'fa-solid fa-hand-holding-dollar',
         label = 'Bill Player',
