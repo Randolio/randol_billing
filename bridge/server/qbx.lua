@@ -1,13 +1,12 @@
-if GetResourceState('qb-core') ~= 'started' or GetResourceState('qbx_core') == 'started' then return end
+if GetResourceState('qbx_core') ~= 'started' then return end
 
-local QBCore = exports['qb-core']:GetCoreObject()
 
 function GetPlayer(id)
-    return QBCore.Functions.GetPlayer(id)
+    return exports.qbx_core:GetPlayer(id)
 end
 
 function DoNotification(src, text, nType)
-    TriggerClientEvent('QBCore:Notify', src, text, nType)
+    exports.qbx_core:Notify(src, text, nType)
 end
 
 function GetCharacterName(Player)
@@ -19,8 +18,8 @@ function GetPlayerJob(Player)
 end
 
 function addSocietyFunds(job, amount, reason)
-    -- exports['Renewed-Banking']:addAccountMoney(job, amount)
-    exports['qb-banking']:AddMoney(job, amount, reason) -- These are 3 examples, i'll leave qb-banking as default. Just remove the ones you are not using.
+    exports['Renewed-Banking']:addAccountMoney(job, amount)
+    -- exports['qb-banking']:AddMoney(job, amount, reason) -- These are 3 examples, i'll leave qb-banking as default. Just remove the ones you are not using.
     -- exports['qb-management']:AddMoney(job, amount)
 end
 
